@@ -6,8 +6,10 @@
     "height": 40,
     "animation": true,
     "content-margins": "0 0 0 0",
-    "x-offset": 0,
-    "y-offset": 50,
+    "x-offset": -63,
+    "y-offset": 49,
+    "static-x": 1826,
+    "static-y": 66,
     "buttons": [
         {
             "text": "󰈆",

@@ -22,6 +22,8 @@ class Config:
     content_margins: Tuple
     x_offset: int
     y_offset: int
+    static_x: int | None
+    static_y: int | None
 
 def get_config(config_path: Path):
     with open(config_path, "r") as f:
@@ -56,7 +58,9 @@ def get_config(config_path: Path):
             config.get("animation", False),
             content_margins,
             config.get("x-offset", 0),
-            config.get("y-offset", 0)
+            config.get("y-offset", 0),
+            config.get("static-x", None),
+            config.get("static-y", None)
     )
 
     return config_object

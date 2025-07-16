@@ -15,7 +15,7 @@ class PopWindow(QWidget):
         self.config = config
 
         self.setWindowTitle(config.title)
-        self.setFixedSize(self.config.width, self.config.height)
+        self.setFixedSize(2, 2)
         self.setContentsMargins(*config.content_margins)
 
         self.main_layout = QHBoxLayout()

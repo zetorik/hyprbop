@@ -4,6 +4,7 @@ from PySide6.QtWidgets import QWidget
 from pop_window import PopWindow
 from get_config import Config
 from utils import get_cursor_pos, raw_move_window, set_window_prop
+from time import sleep
 
 class ShowThread(QThread):
     progress = Signal(int)
@@ -36,11 +37,18 @@ class PopHolder(QWidget):
         self.pop_window.setParent(self)
     
         cursor_pos = get_cursor_pos()
+        new_pos = [cursor_pos[0] + config.x_offset, cursor_pos[1] + config.y_offset]
 
-        self.thread1 = ShowThread(cursor_pos[0] + config.x_offset, cursor_pos[1] + config.y_offset, config.animation_enabled)
+        if config.static_x:
+            new_pos[0] = config.static_x
+        if config.static_y:
+            new_pos[1] = config.static_y
+
+        self.thread1 = ShowThread(new_pos[0], new_pos[1], config.animation_enabled)
         self.thread1.finished.connect(self.on_show)
 
         QTimer.singleShot(0, lambda: self.thread1.start())
+
     def on_show(self) -> None:
         self.show_pop()
 
@@ -50,6 +58,7 @@ class PopHolder(QWidget):
             set_window_prop("noborder", "on")
 
     def show_pop(self) -> None:
+        self.pop_window.setFixedSize(self.config.width, self.config.height)
         self.pop_window.setWindowFlag(Qt.WindowType.Popup, True)
         self.pop_window.show()
 

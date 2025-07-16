@@ -1,3 +1,4 @@
+#!/bin/python3
 import signal
 import sys
 from pathlib import Path
@@ -15,6 +16,7 @@ def load_stylesheet(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
 def main() -> None:
+    print(__file__)
     if len(sys.argv) < 2:
         print("hyprpop: Please provide a config name")
         sys.exit(1)
