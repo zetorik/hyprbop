@@ -14,25 +14,25 @@
         {
             "text": "󰈆",
             "name": "logout",
-            "on-click": "ls"
+            "on-click": "hyprctl dispatch exit"
         },
    
         {
             "text": "󰜉",
             "name": "restart",
-            "on-click": "ls"
+            "on-click": "reboot"
         },
 
         {
             "text": "󰤄",
             "name": "sleep",
-            "on-click": "ls"
+            "on-click": "systemctl hybrid-sleep"
         },
 
         {
             "text": "󰐥",
             "name": "off",
-            "on-click": "ls"
+            "on-click": "poweroff"
         }
     ]
 }
