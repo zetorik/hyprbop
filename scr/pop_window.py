@@ -1,3 +1,5 @@
+from functools import partial
+import os
 from PySide6.QtCore import QThread, QTimer, Qt, Signal
 from PySide6.QtWidgets import QWidget, QHBoxLayout, QPushButton
 
@@ -28,8 +30,6 @@ class PopWindow(QWidget):
         self.setFixedSize(2, 2)
 
         self.thread1 = ShowThread(*get_cursor_pos())
-
-        
         self.thread1.finished.connect(lambda: self.setFixedSize(200, 50))
 
         QTimer.singleShot(0, lambda: self.thread1.start())
@@ -37,6 +37,11 @@ class PopWindow(QWidget):
         self.main_layout = QHBoxLayout()
         self.setLayout(self.main_layout)
 
-        self.test = QPushButton()
-        self.main_layout.addWidget(self.test)
+        for button_config in config.buttons:
+            button = QPushButton(button_config.text)
+
+            self.main_layout.addWidget(button)
+
+            if button_config.on_click is not None:
+                button.clicked.connect(partial(os.system, button_config.on_click))
 
