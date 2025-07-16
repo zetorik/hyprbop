@@ -1,5 +1,6 @@
 {
     "title": "power",
+    "close-on-click": true,
     "buttons": [
         {
             "text": "hi",

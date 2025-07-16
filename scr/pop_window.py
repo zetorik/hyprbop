@@ -1,3 +1,4 @@
+import sys
 from functools import partial
 import os
 from PySide6.QtCore import QThread, QTimer, Qt, Signal
@@ -23,6 +24,8 @@ class ShowThread(QThread):
 class PopWindow(QWidget):
     def __init__(self, config: Config) -> None:
         super().__init__()
+    
+        self.config = config
 
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint)
 
@@ -43,5 +46,11 @@ class PopWindow(QWidget):
             self.main_layout.addWidget(button)
 
             if button_config.on_click is not None:
-                button.clicked.connect(partial(os.system, button_config.on_click))
+                button.clicked.connect(partial(self.on_click, button, button_config.on_click))
+
+    def on_click(self, button: QPushButton, command: str) -> None:
+        os.system(command)
+
+        if self.config.close_on_click:
+            sys.exit(0)
 

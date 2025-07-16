@@ -12,14 +12,14 @@ def get_cursor_pos() -> tuple[int, int]:
     return cords[0], cords[1] 
 
 
-def raw_move_window(x: int, y: int) -> None:
+def raw_move_window(x: int, y: int, inf: bool=False) -> None:
     pid = os.getpid()
 
     #hyprctl dispatch setprop pid:25956 noanim 1 
 
     result = None
 
-    while result != "ok\n":
+    while inf or result != "ok\n":
         subprocess.run(["hyprctl",
                     "dispatch",
                     "setprop",
