@@ -2,9 +2,34 @@
     "title": "power",
     "close-on-click": true,
     "no-system-border": false,
+    "width": 160,
+    "height": 40,
+    "animation": true,
+    "content-margins": "0 0 0 0",
+    "x-offset": 0,
+    "y-offset": 50,
     "buttons": [
         {
-            "text": "hi",
+            "text": "󰈆",
+            "name": "logout",
+            "on-click": "ls"
+        },
+   
+        {
+            "text": "󰜉",
+            "name": "restart",
+            "on-click": "ls"
+        },
+
+        {
+            "text": "󰤄",
+            "name": "sleep",
+            "on-click": "ls"
+        },
+
+        {
+            "text": "󰐥",
+            "name": "off",
             "on-click": "ls"
         }
     ]

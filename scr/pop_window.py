@@ -1,63 +1,48 @@
 import sys
 from functools import partial
 import os
-import subprocess
-from PySide6.QtCore import QThread, QTimer, Qt, Signal
-from PySide6.QtWidgets import QWidget, QHBoxLayout, QPushButton
-
+from PySide6.QtCore import  Qt, Signal
+from PySide6.QtGui import QCloseEvent
+from PySide6.QtWidgets import QSizePolicy, QWidget, QHBoxLayout, QPushButton
 from get_config import Config
-from utils import get_cursor_pos, raw_move_window, set_window_prop
-
-class ShowThread(QThread):
-    progress = Signal(int)
-    finished = Signal()
-
-    def __init__(self, x: int, y: int):
-        super().__init__()
-        self.x = x
-        self.y = y
-
-    def run(self):
-        raw_move_window(self.x, self.y) 
-
-        self.finished.emit()
 
 class PopWindow(QWidget):
+    closing = Signal()
+
     def __init__(self, config: Config) -> None:
         super().__init__()
     
         self.config = config
 
-        self.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint)
-
         self.setWindowTitle(config.title)
-        self.setFixedSize(2, 2)
-
-        self.thread1 = ShowThread(*get_cursor_pos())
-        self.thread1.finished.connect(self.on_show)
-
-        QTimer.singleShot(0, lambda: self.thread1.start())
+        self.setFixedSize(self.config.width, self.config.height)
+        self.setContentsMargins(*config.content_margins)
 
         self.main_layout = QHBoxLayout()
         self.setLayout(self.main_layout)
+        self.main_layout.setContentsMargins(0, 0, 0, 0)
+        self.main_layout.setSpacing(0)
+
+        self.setObjectName("PopWindow")
 
         for button_config in config.buttons:
             button = QPushButton(button_config.text)
+            button.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
-            self.main_layout.addWidget(button)
+            if button_config.name is not None:
+                button.setObjectName(button_config.name)
+
+            self.main_layout.addWidget(button, alignment=Qt.AlignmentFlag.AlignCenter)
 
             if button_config.on_click is not None:
                 button.clicked.connect(partial(self.on_click, button, button_config.on_click))
-
-    def on_show(self) -> None:
-        self.setFixedSize(200, 50)
-        
-        if self.config.no_system_border:
-            set_window_prop("noborder", "on")
 
     def on_click(self, button: QPushButton, command: str) -> None:
         os.system(command)
 
         if self.config.close_on_click:
             sys.exit(0)
+
+    def closeEvent(self, event: QCloseEvent) -> None:
+        self.closing.emit()
 

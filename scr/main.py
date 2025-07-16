@@ -5,6 +5,7 @@ from PySide6.QtWidgets import QApplication
 from get_config import get_config
 
 from pop_window import PopWindow
+from pop_holder import PopHolder
 
 signal.signal(signal.SIGINT, signal.SIG_DFL)
 
@@ -24,8 +25,6 @@ def main() -> None:
 
     for config_path in CONFIG_PATHS:
         json_config = config_path / (config_name + ".json")
-
-        print(json_config)
 
         if json_config.exists():
             break
@@ -53,7 +52,7 @@ def main() -> None:
     if style is not None:
         app.setStyleSheet(style)
 
-    window = PopWindow(config)
+    window = PopHolder(config)
     window.show()
 
     app.exec()

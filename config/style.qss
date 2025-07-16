@@ -1,3 +1,37 @@
-QWidget {
-    background-color: black;
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: FontAwesome, sans-serif;
+    font-size: 13pt;
 }
+
+QWidget {
+    background-color: #1e1e2e;
+}
+
+QWidget#PopWindow {
+    margin: 10px;
+}
+
+QPushButton {
+    min-height: 30px;
+    min-width: 30px;
+    border: 1px solid #cba6f7;   /* Border color and thickness */
+}
+
+QPushButton#off {
+    color: #f38ba8;
+}
+
+QPushButton#sleep {
+    color: #f9e2af;
+}
+
+QPushButton#logout {
+    color: #a6e3a1;
+}
+
+QPushButton#restart {
+    color: #94e2d5;
+}
+
