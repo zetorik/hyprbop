@@ -1,6 +1,7 @@
 from PySide6.QtCore import QThread, QTimer, Qt, Signal
 from PySide6.QtWidgets import QWidget, QHBoxLayout, QPushButton
 
+from get_config import Config
 from utils import get_cursor_pos, raw_move_window
 
 class ShowThread(QThread):
@@ -18,12 +19,12 @@ class ShowThread(QThread):
         self.finished.emit()
 
 class PopWindow(QWidget):
-    def __init__(self, title: str) -> None:
+    def __init__(self, config: Config) -> None:
         super().__init__()
 
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint)
 
-        self.setWindowTitle(title)
+        self.setWindowTitle(config.title)
         self.setFixedSize(2, 2)
 
         self.thread1 = ShowThread(*get_cursor_pos())

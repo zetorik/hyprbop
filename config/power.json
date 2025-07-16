@@ -1,0 +1,9 @@
+{
+    "title": "power",
+    "buttons": [
+        {
+            "text": "hi",
+            "on-click": "ls"
+        }
+    ]
+}
