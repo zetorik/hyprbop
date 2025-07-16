@@ -14,6 +14,7 @@ class Config:
     title: str
     buttons: List[ButtonConfig]
     close_on_click: bool
+    no_system_border: bool
 
 def get_config(config_path: Path):
     with open(config_path, "r") as f:
@@ -35,7 +36,8 @@ def get_config(config_path: Path):
     config_object = Config(
             config.get("title", "pop"),
             buttons,
-            config.get("close-on-click", True)
+            config.get("close-on-click", True),
+            config.get("no-system-border", False),
     )
 
     return config_object

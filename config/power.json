@@ -1,6 +1,7 @@
 {
     "title": "power",
     "close-on-click": true,
+    "no-system-border": false,
     "buttons": [
         {
             "text": "hi",

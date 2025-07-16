@@ -3,6 +3,15 @@ import subprocess
 import threading
 
 
+def set_window_prop(prop: str, value: str):
+    subprocess.run(["hyprctl",
+                    "dispatch",
+                    "setprop",
+                    f"pid:{os.getpid()}",
+                    prop,
+                    value])
+
+
 def get_cursor_pos() -> tuple[int, int]:
     out = subprocess.run(["hyprctl", "cursorpos"], capture_output=True, text=True).stdout
 
@@ -20,12 +29,7 @@ def raw_move_window(x: int, y: int, inf: bool=False) -> None:
     result = None
 
     while inf or result != "ok\n":
-        subprocess.run(["hyprctl",
-                    "dispatch",
-                    "setprop",
-                    f"pid:{pid}",
-                    "noanim",
-                    "1"])
+        set_window_prop("noanim", "1")
 
         result = subprocess.run(["hyprctl",
                     "dispatch",

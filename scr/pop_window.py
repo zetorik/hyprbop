@@ -1,11 +1,12 @@
 import sys
 from functools import partial
 import os
+import subprocess
 from PySide6.QtCore import QThread, QTimer, Qt, Signal
 from PySide6.QtWidgets import QWidget, QHBoxLayout, QPushButton
 
 from get_config import Config
-from utils import get_cursor_pos, raw_move_window
+from utils import get_cursor_pos, raw_move_window, set_window_prop
 
 class ShowThread(QThread):
     progress = Signal(int)
@@ -33,7 +34,7 @@ class PopWindow(QWidget):
         self.setFixedSize(2, 2)
 
         self.thread1 = ShowThread(*get_cursor_pos())
-        self.thread1.finished.connect(lambda: self.setFixedSize(200, 50))
+        self.thread1.finished.connect(self.on_show)
 
         QTimer.singleShot(0, lambda: self.thread1.start())
 
@@ -47,6 +48,12 @@ class PopWindow(QWidget):
 
             if button_config.on_click is not None:
                 button.clicked.connect(partial(self.on_click, button, button_config.on_click))
+
+    def on_show(self) -> None:
+        self.setFixedSize(200, 50)
+        
+        if self.config.no_system_border:
+            set_window_prop("noborder", "on")
 
     def on_click(self, button: QPushButton, command: str) -> None:
         os.system(command)
