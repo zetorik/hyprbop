@@ -1,6 +1,12 @@
 # hyprbop
 A hacky utility for creating custom popups on hyprland
 
+# Installation
+## Aur
+```bash
+yay -S hyprbop
+```
+
 # Usage
 ```bash
 hyprbop <configname>
