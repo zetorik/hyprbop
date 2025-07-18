@@ -3,10 +3,9 @@ import signal
 import sys
 from pathlib import Path
 from PySide6.QtWidgets import QApplication
-from get_config import get_config
 
-from pop_window import PopWindow
-from pop_holder import PopHolder
+from hyprbop.get_config import get_config
+from hyprbop.pop_holder import PopHolder
 
 signal.signal(signal.SIGINT, signal.SIG_DFL)
 

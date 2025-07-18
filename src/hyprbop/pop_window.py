@@ -4,7 +4,8 @@ import os
 from PySide6.QtCore import  Qt, Signal
 from PySide6.QtGui import QCloseEvent
 from PySide6.QtWidgets import QSizePolicy, QWidget, QHBoxLayout, QPushButton
-from get_config import Config
+
+from hyprbop.get_config import Config
 
 class PopWindow(QWidget):
     closing = Signal()

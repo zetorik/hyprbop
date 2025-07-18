@@ -1,10 +1,10 @@
 from PySide6.QtCore import QThread, QTimer, Signal
 from PySide6.QtGui import Qt
 from PySide6.QtWidgets import QWidget
-from pop_window import PopWindow
-from get_config import Config
-from utils import get_cursor_pos, raw_move_window, set_window_prop
-from time import sleep
+
+from hyprbop.pop_window import PopWindow
+from hyprbop.get_config import Config
+from hyprbop.utils import get_cursor_pos, raw_move_window, set_window_prop
 
 class ShowThread(QThread):
     progress = Signal(int)
