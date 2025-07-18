@@ -9,7 +9,7 @@ def set_window_prop(prop: str, value: str) -> None:
                     "setprop",
                     f"pid:{os.getpid()}",
                     prop,
-                    value])
+                    value], capture_output=True)
 
 
 def get_cursor_pos() -> tuple[int, int]:
@@ -23,8 +23,6 @@ def get_cursor_pos() -> tuple[int, int]:
 
 def raw_move_window(x: int, y: int, animation_enabled: bool, inf: bool=False) -> None:
     pid = os.getpid()
-
-    #hyprctl dispatch setprop pid:25956 noanim 1 
 
     result = None
 

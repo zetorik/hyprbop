@@ -22,6 +22,9 @@ dependencies = [
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+"hyprbop" = ["config/*.json", "config/*.qss"]
+
 [project.scripts]
 hyprbop = "hyprbop.main:main"
 

@@ -9,13 +9,12 @@ from hyprbop.pop_holder import PopHolder
 
 signal.signal(signal.SIGINT, signal.SIG_DFL)
 
-CONFIG_PATHS = [Path("~/.config/hyprpop/") , Path(__file__).parent.parent / "config"]
+CONFIG_PATHS = [Path("~/.config/hyprbop/").expanduser() , Path(__file__).parent / "config"]
 
 def load_stylesheet(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
 def main() -> None:
-    print(__file__)
     if len(sys.argv) < 2:
         print("hyprpop: Please provide a config name")
         sys.exit(1)
