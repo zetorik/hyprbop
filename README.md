@@ -17,5 +17,5 @@ hyprbop <configname>
 
 # Config
 - Config directory: ~/.config/hyprbop/
-- Config files: <configname>.json, style.qss
+- Config files: configname.json, style.qss
 - See example config [power.json](src/hyprbop/config/power.json)
